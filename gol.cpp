@@ -105,7 +105,7 @@ public:
     }
 
     // Sets offset pattern on the cell field
-    void set_pattern(const vector<string>& pattern, int dx=0, int dy=0) {
+    void set_pattern (const vector<string>& pattern, int dx=0, int dy=0) {
         for (unsigned y = 0; y < pattern.size(); y++) {
             for (unsigned x = 0; x < pattern[y].size(); x++) {
                 set(x+dx, y+dy, pattern[y][x] == 'X');
@@ -113,7 +113,7 @@ public:
         }
     }
 
-    string to_string() const {
+    string to_string () const {
         char state[] = ".X";
         string str((width+1)*height, '\n');
         for (int y=0; y<height; y++) {
@@ -126,7 +126,7 @@ public:
         return str;
     }
 
-    bool operator==(const Field& other) const {
+    bool operator== (const Field& other) const {
         if (width != other.width or height != other.height) return false;
         for (int i = 0; i < width*height; i++) {
             if (cells[i] != other.cells[i]) return false;
@@ -134,7 +134,7 @@ public:
         return true;
     }
 
-    bool operator!=(const Field& other) const {
+    bool operator!= (const Field& other) const {
         return !(*this == other);
     }
 };
