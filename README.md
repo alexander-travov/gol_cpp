@@ -1,6 +1,8 @@
 Conway's Game of Life
 =====================
 
+![Pulsar](https://github.com/alexander-travov/gol_cpp/raw/master/pulsar.gif "Pulsar")
+
 This is C++ implementation of the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
 You need at least C++11 compiler.
