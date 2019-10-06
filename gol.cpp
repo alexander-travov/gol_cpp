@@ -43,15 +43,19 @@ public:
         neighbours(w*h, 0) {}
 
     // Sets random state to the cell field.
+    // alive_probability sets the probability for an individual cell to be alive.
     // Use seed to reproduce state.
-    void randomize (int seed=-1) {
+    void randomize (double alive_probability=0.5, int seed=-1) {
+        if (alive_probability < 0 || alive_probability > 1) {
+            throw logic_error("alive_probability should be within [0, 1] range!");
+        }
         if (seed < 0) {
             seed = chrono::system_clock::now().time_since_epoch().count();
         }
         auto rng = default_random_engine(seed);
-        auto dist = uniform_int_distribution<>(0,1);
+        auto dist = uniform_real_distribution<double>(0,1);
         for (int i = 0; i < width*height; i++) {
-            cells[i] = dist(rng);
+            cells[i] = dist(rng) < alive_probability;
         }
     }
 
@@ -197,7 +201,7 @@ int main () {
     // field.set_pattern(GLIDER, 5, 0);
     // field.set_pattern(GLIDER, 5, 5);
 
-    // field.randomize();
+    // field.randomize(0.2);
 
     for (;;) {
         cout << field << endl;

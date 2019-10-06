@@ -24,7 +24,7 @@ Examples
 
 ``` c++
 auto field = Field(70, 30);
-field.randomize();
+field.randomize(0.2);
 
 for (;;) {
     cout << field << endl;
