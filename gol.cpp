@@ -68,23 +68,23 @@ public:
     void update () {
         neighbours.assign(width*height, 0);
 
-        // Neighbours' displacements
-        // XXX
-        // X0X
-        // XXX
-        const int num_neighbours = 8;
-        const int dx[] {-1,  0,  1, -1,  1, -1,  0,  1};
-        const int dy[] {-1, -1, -1,  0,  0,  1,  1,  1};
-
         // Count alive neighbours for each cell
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 bool alive = cells[get_index(x, y)];
                 if (!alive) continue;
 
-                for (int n = 0; n < num_neighbours; n++) {
-                    int neighbour_ind = get_index(x + dx[n], y + dy[n]);
-                    neighbours[neighbour_ind]++;
+                // Neighbours' displacements
+                // XXX
+                // X0X
+                // XXX
+                for (int dy: {-1, 0, 1}) {
+                    for (int dx: {-1, 0, 1}) {
+                        if (dx || dy) {
+                            int ind = get_index(x + dx, y + dy);
+                            neighbours[ind]++;
+                        }
+                    }
                 }
             }
         }
