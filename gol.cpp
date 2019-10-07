@@ -143,11 +143,9 @@ public:
     }
 
     bool operator== (const Field& other) const {
-        if (width != other.width or height != other.height) return false;
-        for (int i = 0; i < width*height; i++) {
-            if (cells[i] != other.cells[i]) return false;
-        }
-        return true;
+        return (width == other.width &&
+                height == other.height &&
+                cells == other.cells);
     }
 
     bool operator!= (const Field& other) const {
@@ -213,7 +211,7 @@ int main () {
     // field.set_pattern(GLIDER, 5, 0);
     // field.set_pattern(GLIDER, 5, 5);
 
-    field.randomize(0.05);
+    // field.randomize(0.2);
 
     do {
         cout << field << endl;
