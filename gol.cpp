@@ -98,6 +98,14 @@ public:
         }
     }
 
+    int get_width () const {
+        return width;
+    }
+
+    int get_height () const {
+        return height;
+    }
+
     // Gets cell state for given coordinates
     bool get (int x, int y) const {
         return cells[get_index(x, y)];
