@@ -26,11 +26,11 @@ Examples
 auto field = Field(70, 30);
 field.randomize(0.2);
 
-for (;;) {
+do {
     cout << field << endl;
     field.update();
     this_thread::sleep_for(chrono::milliseconds(100));
-}
+} while (field.alive_count());
 ```
 
 2. Count repeat period of Pulsar pattern:

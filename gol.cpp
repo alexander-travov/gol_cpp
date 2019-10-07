@@ -106,6 +106,10 @@ public:
         return height;
     }
 
+    int alive_count () const {
+        return accumulate(cells.begin(), cells.end(), 0);
+    }
+
     // Gets cell state for given coordinates
     bool get (int x, int y) const {
         return cells[get_index(x, y)];
@@ -209,13 +213,13 @@ int main () {
     // field.set_pattern(GLIDER, 5, 0);
     // field.set_pattern(GLIDER, 5, 5);
 
-    // field.randomize(0.2);
+    field.randomize(0.05);
 
-    for (;;) {
+    do {
         cout << field << endl;
         field.update();
         this_thread::sleep_for(chrono::milliseconds(100));
-    }
+    } while (field.alive_count());
 
     // auto pulsar = Field(20, 20);
     // pulsar.set_pattern(PULSAR);
