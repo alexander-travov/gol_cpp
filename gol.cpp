@@ -65,7 +65,8 @@ public:
     }
 
     // Calculates cell field for the next epoch.
-    void update () {
+    // Returns the number of updates.
+    int update () {
         neighbours.assign(width*height, 0);
 
         // Count alive neighbours for each cell
@@ -89,13 +90,21 @@ public:
             }
         }
 
+        int num_updates = 0;
+
         for (int i = 0; i < width*height; i++) {
             int alive_count = neighbours[i];
-            if (alive_count < 2 || alive_count >= 4)
+            if (alive_count < 2 || alive_count >= 4) {
+                if (cells[i]) num_updates++;
                 cells[i] = false;
-            else if (alive_count == 3)
+            }
+            else if (alive_count == 3) {
+                if (!cells[i]) num_updates++;
                 cells[i] = true;
+            }
         }
+
+        return num_updates;
     }
 
     int get_width () const {
@@ -211,13 +220,16 @@ int main () {
     // field.set_pattern(GLIDER, 5, 0);
     // field.set_pattern(GLIDER, 5, 5);
 
-    // field.randomize(0.2);
+    // field.randomize(0.05);
 
-    do {
-        cout << field << endl;
-        field.update();
+    for (;;) {
+        cout << field;
+        int num_updates = field.update();
+        cout << "Number of updates: " << num_updates << endl;
+        // hit stationary state
+        if (num_updates == 0) break;
         this_thread::sleep_for(chrono::milliseconds(100));
-    } while (field.alive_count());
+    }
 
     // auto pulsar = Field(20, 20);
     // pulsar.set_pattern(PULSAR);

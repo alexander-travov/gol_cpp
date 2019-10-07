@@ -20,17 +20,19 @@ make
 Examples
 --------
 
-1. Watch evolution from random state:
+1. Watch evolution from random state till we hit stationary state:
 
 ``` c++
 auto field = Field(70, 30);
 field.randomize(0.2);
 
-do {
-    cout << field << endl;
-    field.update();
+for (;;) {
+    cout << field;
+    int num_updates = field.update();
+    cout << "Number of updates: " << num_updates << endl;
+    if (num_updates == 0) break;
     this_thread::sleep_for(chrono::milliseconds(100));
-} while (field.alive_count());
+}
 ```
 
 2. Count repeat period of Pulsar pattern:
